@@ -201,7 +201,7 @@ button {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1  6px;
 }
 
 .icon-btn {
