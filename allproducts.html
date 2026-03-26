@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>All Products | MarketHub - Shop Everything</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== HEADER / NAVIGATION ========== -->
+  <header class="site-header">
+    <div class="container header-container">
+      <div class="logo-area">
+        <a href="index.html" class="logo">
+          <i class="fas fa-store"></i>
+          <span>Market<span class="logo-highlight">Hub</span></span>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html" class="active">Shop</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Deals</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn search-toggle" id="searchToggle" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="btn-outline-sm user-btn">
+          <i class="far fa-user-circle"></i> Sign in
+        </button>
+        <button class="mobile-menu-toggle" id="mobileToggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Search Bar -->
+    <div class="search-bar" id="searchBar">
+      <div class="container search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search products by name, category, or brand...">
+        <button id="closeSearch"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <!-- mobile navigation -->
+    <div class="mobile-nav" id="mobileNav">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html" class="active">Shop</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">Deals</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#"><i class="far fa-user-circle"></i> My Account</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+      <div class="container">
+        <h1>All <span class="gradient-text">Products</span></h1>
+        <p>Discover our curated collection of premium products from trusted sellers</p>
+      </div>
+    </section>
+
+    <!-- ========== PRODUCTS SECTION WITH SIDEBAR ========== -->
+    <section class="products-section">
+      <div class="container products-layout">
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar" id="filterSidebar">
+          <div class="filter-header">
+            <h3><i class="fas fa-filter"></i> Filters</h3>
+            <button class="clear-filters" id="clearFilters">Clear all</button>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-group">
+            <h4><i class="fas fa-tags"></i> Categories</h4>
+            <div class="filter-options" id="categoryFilter">
+              <label class="checkbox-label">
+                <input type="checkbox" value="electronics"> Electronics
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="fashion"> Fashion
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="home"> Home & Living
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="books"> Books & Media
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="sports"> Sports
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" value="jewelry"> Jewelry
+              </label>
+            </div>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-group">
+            <h4><i class="fas fa-dollar-sign"></i> Price Range</h4>
+            <div class="price-range">
+              <div class="price-inputs">
+                <input type="number" id="minPrice" placeholder="Min" value="0">
+                <span>-</span>
+                <input type="number" id="maxPrice" placeholder="Max" value="1000">
+              </div>
+              <input type="range" id="priceSlider" min="0" max="1000" step="10" value="1000">
+            </div>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-group">
+            <h4><i class="fas fa-star"></i> Rating</h4>
+            <div class="filter-options" id="ratingFilter">
+              <label class="checkbox-label">
+                <input type="radio" name="rating" value="4"> ★★★★☆ & above
+              </label>
+              <label class="checkbox-label">
+                <input type="radio" name="rating" value="3"> ★★★☆☆ & above
+              </label>
+              <label class="checkbox-label">
+                <input type="radio" name="rating" value="2"> ★★☆☆☆ & above
+              </label>
+              <label class="checkbox-label">
+                <input type="radio" name="rating" value="1"> ★☆☆☆☆ & above
+              </label>
+              <label class="checkbox-label">
+                <input type="radio" name="rating" value="0" checked> All ratings
+              </label>
+            </div>
+          </div>
+
+          <!-- Availability Filter -->
+          <div class="filter-group">
+            <h4><i class="fas fa-box"></i> Availability</h4>
+            <div class="filter-options">
+              <label class="checkbox-label">
+                <input type="checkbox" id="inStockOnly"> In Stock Only
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Products Main Content -->
+        <div class="products-main">
+          <!-- Sorting and View Controls -->
+          <div class="products-toolbar">
+            <div class="results-count">
+              <span id="productCount">0</span> products found
+            </div>
+            <div class="sorting">
+              <label for="sortBy">Sort by:</label>
+              <select id="sortBy">
+                <option value="featured">Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="newest">Newest First</option>
+              </select>
+            </div>
+            <button class="filter-toggle" id="filterToggle">
+              <i class="fas fa-sliders-h"></i> Filters
+            </button>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="products-grid" id="productsGrid">
+            <!-- Products will be dynamically loaded here -->
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination" id="pagination">
+            <!-- Pagination buttons will be dynamically generated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== NEWSLETTER ========== -->
+    <section class="newsletter">
+      <div class="container newsletter-box">
+        <div>
+          <h3>Stay in the loop</h3>
+          <p>Subscribe to get special offers, new arrivals & deals.</p>
+        </div>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="Your email address" required>
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <i class="fas fa-store"></i> MarketHub
+        </div>
+        <p>Your one-stop marketplace for quality products and trusted sellers.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="products.html">New Arrivals</a></li>
+          <li><a href="products.html">Best Sellers</a></li>
+          <li><a href="#">Discounts</a></li>
+          <li><a href="#">Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Payment Methods</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="#">Seller Center</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2025 MarketHub — Modern marketplace. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
