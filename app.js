@@ -205,3 +205,17 @@ window.editProduct = function(id, oldName, oldPrice, oldImage) {
   });
 
 };
+
+onAuthStateChanged(auth, (user) => {
+
+  const addProductBtn = document.getElementById("addProductBtn");
+
+  if (addProductBtn) {
+    addProductBtn.disabled = !user;
+
+    if (!user) {
+      alert("⚠️ Please login first!");
+    }
+  }
+
+});
