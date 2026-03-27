@@ -194,14 +194,3 @@ window.editProduct = function(id, oldName, oldPrice, oldImage) {
 
 
 // ================= AUTH CONTROL =================
-onAuthStateChanged(auth, (user) => {
-
-  const addBtn = document.getElementById("addProductBtn");
-
-  if (addBtn) {
-    if (!user) {
-      addBtn.style.display = "none"; // hide instead of alert
-    }
-  }
-
-});
