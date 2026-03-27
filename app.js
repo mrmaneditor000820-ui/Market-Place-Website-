@@ -53,7 +53,7 @@ if (signupBtn) {
     createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
         alert("✅ Account Created Successfully!");
-        window.location.href = "index.html";
+        window.location.href = "login.html";
     })
     .catch((error) => {
 
@@ -84,7 +84,7 @@ if (logoutBtn) {
     signOut(auth)
     .then(() => {
         alert("✅ Logged out!");
-        window.location.href = "signup.html";
+        window.location.href = "index.html";
     })
     .catch(() => {
         alert("❌ Logout failed!");
