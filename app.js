@@ -14,7 +14,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { 
   getAuth, 
   createUserWithEmailAndPassword, 
-  signOut
+  signOut,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import { 
@@ -52,24 +53,11 @@ if (signupBtn) {
 
     createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
-        alert("✅ Account Created Successfully!");
+        alert("✅ Account Created!");
         window.location.href = "login.html";
     })
     .catch((error) => {
-
-        if (error.code === "auth/email-already-in-use") {
-            alert("⚠️ Email already in use!");
-        } 
-        else if (error.code === "auth/invalid-email") {
-            alert("⚠️ Invalid email!");
-        } 
-        else if (error.code === "auth/weak-password") {
-            alert("⚠️ Password must be 6+ characters!");
-        } 
-        else {
-            alert("❌ Something went wrong!");
-        }
-
+        alert(error.message);
     });
 
   });
@@ -104,7 +92,7 @@ if (addProductBtn) {
     const image = document.getElementById("pimage").value;
 
     if (!name || !price || !image) {
-      alert("⚠️ Please fill all fields");
+      alert("⚠️ Fill all fields");
       return;
     }
 
@@ -119,16 +107,13 @@ if (addProductBtn) {
       document.getElementById("pname").value = "";
       document.getElementById("pprice").value = "";
       document.getElementById("pimage").value = "";
-    })
-    .catch(() => {
-      alert("❌ Error adding product");
     });
 
   });
 }
 
 
-// ================= SHOW PRODUCTS (REALTIME) =================
+// ================= SHOW PRODUCTS (SMART LOGIC) =================
 const productsGrid = document.getElementById("productsGrid");
 
 if (productsGrid) {
@@ -139,23 +124,34 @@ if (productsGrid) {
 
     productsGrid.innerHTML = "";
 
+    let count = 0;
+    const isHome = window.location.pathname.includes("index.html");
+
     snapshot.forEach((child) => {
 
       const product = child.val();
       const id = child.key;
 
-      productsGrid.innerHTML += `
-        <div class="product-card">
-          <img src="${product.image}" />
-          <h3>${product.name}</h3>
-          <p>$${product.price}</p>
+      // 👉 HOME PAGE → only 4 products
+      if (isHome && count >= 4) return;
 
-          <div class="btn-group">
-            <button class="delete-btn" onclick="deleteProduct('${id}')">Delete</button>
-            <button class="edit-btn" onclick="editProduct('${id}', '${product.name}', '${product.price}', '${product.image}')">Edit</button>
-          </div>
-        </div>
-      `;
+    productsGrid.innerHTML += `
+  <div class="product-card">
+    <img src="${product.image}" />
+
+    <div class="content">
+      <h3>${product.name}</h3>
+      <p>$${product.price}</p>
+
+      <div class="btn-group">
+        <button class="delete-btn" onclick="deleteProduct('${id}')">Delete</button>
+        <button class="edit-btn" onclick="editProduct('${id}', '${product.name}', '${product.price}', '${product.image}')">Edit</button>
+      </div>
+    </div>
+  </div>
+`;
+
+      count++;
 
     });
 
@@ -164,31 +160,26 @@ if (productsGrid) {
 }
 
 
-// ================= DELETE PRODUCT =================
+// ================= DELETE =================
 window.deleteProduct = function(id) {
 
   if (!confirm("Delete this product?")) return;
 
   remove(ref(db, "products/" + id))
-  .then(() => {
-    alert("🗑️ Product deleted");
-  })
-  .catch(() => {
-    alert("❌ Delete failed");
-  });
+  .then(() => alert("🗑️ Deleted"));
 
 };
 
 
-// ================= EDIT PRODUCT =================
+// ================= EDIT =================
 window.editProduct = function(id, oldName, oldPrice, oldImage) {
 
-  const newName = prompt("Enter name:", oldName);
-  const newPrice = prompt("Enter price:", oldPrice);
-  const newImage = prompt("Enter image URL:", oldImage);
+  const newName = prompt("Name:", oldName);
+  const newPrice = prompt("Price:", oldPrice);
+  const newImage = prompt("Image URL:", oldImage);
 
   if (!newName || !newPrice || !newImage) {
-    alert("⚠️ All fields required");
+    alert("⚠️ Fill all fields");
     return;
   }
 
@@ -197,24 +188,19 @@ window.editProduct = function(id, oldName, oldPrice, oldImage) {
     price: newPrice,
     image: newImage
   })
-  .then(() => {
-    alert("✏️ Product updated");
-  })
-  .catch(() => {
-    alert("❌ Update failed");
-  });
+  .then(() => alert("✏️ Updated"));
 
 };
 
+
+// ================= AUTH CONTROL =================
 onAuthStateChanged(auth, (user) => {
 
-  const addProductBtn = document.getElementById("addProductBtn");
+  const addBtn = document.getElementById("addProductBtn");
 
-  if (addProductBtn) {
-    addProductBtn.disabled = !user;
-
+  if (addBtn) {
     if (!user) {
-      alert("⚠️ Please login first!");
+      addBtn.style.display = "none"; // hide instead of alert
     }
   }
 
